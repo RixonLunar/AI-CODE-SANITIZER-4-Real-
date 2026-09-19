@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OrbitGuard — Live satellite conjunction screening</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <div class="brand">✦ OrbitGuard</div>
+      <div class="tag">Live satellite conjunction screening</div>
+    </div>
+    <div class="live"><i></i> LIVE DATA</div>
+  </header>
+  <main>
+    <section class="pair">
+      <div class="panel">
+        <h2>Satellite A</h2>
+        <div class="search">
+          <input id="qa" value="ISS">
+          <button onclick="searchSat('A')">Search</button>
+        </div>
+        <div id="listA" class="results"></div>
+        <div id="chosenA" class="chosen">Not selected</div>
+      </div>
+      <div class="panel">
+        <h2>Satellite B</h2>
+        <div class="search">
+          <input id="qb" value="STARLINK">
+          <button onclick="searchSat('B')">Search</button>
+        </div>
+        <div id="listB" class="results"></div>
+        <div id="chosenB" class="chosen">Not selected</div>
+      </div>
+    </section>
+    <section class="action">
+      <button class="primary" onclick="runAnalysis()">Run live conjunction analysis</button>
+      <span id="status">Search and select two satellites.</span>
+    </section>
+    <section class="panel intelligence">
+      <h2>Conjunction Intelligence</h2>
+      <div class="buttons">
+        <button class="primary" onclick="loadSocrates()">Load CelesTrak conjunction report</button>
+        <button onclick="loadHistory()">Refresh analysis history</button>
+        <button onclick="clearReport()">Clear report</button>
+      </div>
+      <p>Live screening uses current CelesTrak GP/OMM data and SGP4/SDP4 propagation. The result is a geometric screening calculation, not an operational collision probability.</p>
+    </section>
+    <section id="report" class="hidden">
+      <div class="panel">
+        <div class="sectionhead">
+          <h2>Conjunction Analysis</h2>
+          <span id="badge"></span>
+        </div>
+        <div class="stats">
+          <div><small>Minimum separation</small><strong id="sep">—</strong></div>
+          <div><small>Time of closest approach</small><strong id="tca">—</strong></div>
+          <div><small>Relative velocity</small><strong id="rv">—</strong></div>
+          <div><small>Samples</small><strong id="samples">—</strong></div>
+        </div>
+        <div id="viewer" class="viewer"></div>
+        <div class="viewerbar">
+          <span>Real propagated orbital positions</span>
+          <button onclick="resetCamera()">Reset camera</button>
+          <button onclick="toggleAnimation()">Animate</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="sectionhead">
+          <h2>Mission Screening Report</h2>
+          <button onclick="downloadJSON()">Download JSON</button>
+        </div>
+        <div class="reportgrid">
+          <div><span>Object A</span><b id="objA">—</b></div>
+          <div><span>Object B</span><b id="objB">—</b></div>
+          <div><span>Minimum separation</span><b id="rsep">—</b></div>
+          <div><span>Closest approach</span><b id="rtca">—</b></div>
+          <div><span>Relative velocity</span><b id="rrv">—</b></div>
+          <div><span>Data source</span><b id="source">—</b></div>
+        </div>
+        <div class="assessment">
+          <b>Screening Assessment</b>
+          <p id="assessment">—</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="sectionhead">
+          <h2>Separation profile</h2>
+        </div>
+        <canvas id="chart" height="180"></canvas>
+      </div>
+      <div id="socPanel" class="panel hidden">
+        <div class="sectionhead">
+          <h2>CelesTrak SOCRATES</h2>
+          <span id="socStatus"></span>
+        </div>
+        <div class="tablewrap">
+          <table id="socTable"></table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>OrbitGuard • Live CelesTrak screening • Validate critical conjunction decisions against authoritative operational data.</footer>
+  
+  <!-- Three.js must be loaded BEFORE your custom app.js logic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

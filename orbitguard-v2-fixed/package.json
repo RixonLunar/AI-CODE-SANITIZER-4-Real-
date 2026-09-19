@@ -1,0 +1,6 @@
+{
+  "name":"orbitguard","version":"2.0.0","private":true,"type":"module",
+  "scripts":{"start":"node server.js","dev":"node --watch server.js"},
+  "engines":{"node":">=18"},
+  "dependencies":{"express":"5.2.1","satellite.js":"7.1.0"}
+}
